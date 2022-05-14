@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.lacgaa.tdsi;
 
 import java.sql.Connection;
@@ -13,34 +8,54 @@ import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author USER
- */
 public class Authentification {
-    private static boolean var=false;
+    private static String str=" ";
+    private static int id;
     
-    public static boolean testBD(String user,String passw){
+    public static String testBD(String user,String passw){
             Connection con = connectionBaseDeDonnees.connexionBase();
             
-            String sql="SELECT user,password FROM authentification WHERE user='"+user+"' AND password='"+passw+"'";
+            String sql="SELECT * FROM authentification WHERE user='"+user+"' AND password='"+passw+"'";
             
         try {
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery(sql);
-            var = rs.next();
+            rs.next();
+            if(rs == null) {
+            	System.out.println("erreur : résultat nul");
+            	return str;
+            }
+            str = rs.getString(4);
+            System.out.println(str);
             
         } catch (SQLException ex) {
             Logger.getLogger(Authentification.class.getName()).log(Level.SEVERE, null, ex);
         } 
-            
-        
-            return var;
+        return str;
         }
-        
      
-            
-            
-    }
+public static int getIDfromUser(String user){
+    Connection con = connectionBaseDeDonnees.connexionBase();
     
+    String sql="SELECT * FROM authentification WHERE user='"+user+"'";
+    
+try {
+    Statement st = con.createStatement();
+    ResultSet rs = st.executeQuery(sql);
+    rs.next();
+    id = rs.getInt("idAuth");
+    System.out.println(id);
+
+    
+} catch (SQLException ex) {
+    Logger.getLogger(Authentification.class.getName()).log(Level.SEVERE, null, ex);
+}
+return id; 
+
+}
+
+
+    
+    
+}
 

@@ -7,8 +7,6 @@ package com.lacgaa.tdsi;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-
-import javax.ejb.Singleton;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -34,20 +32,34 @@ public class ConnectionServlet extends HttpServlet {
             PrintWriter out = response.getWriter();
             String email = request.getParameter("email");
             String password = request.getParameter("mdp");
-            
-            if(!Authentification.testBD(email, password)){
-                //response.sendRedirect("index.html");
-            	
-                request.getRequestDispatcher("index.html").include(request, response); 
-            }else{
-                HttpSession session=request.getSession();  
-                session.setAttribute("login",email);
-                
-                response.sendRedirect("listPanier.jsp");
-                
+            HttpSession session;
+          
+            String connectedAs = Authentification.testBD(email, password);
+            switch(connectedAs){
+                case("user"):
+                      session=request.getSession();  
+                      session.setAttribute("login",email);
+                      session.setAttribute("role", "user");
+                      session.setAttribute("idUser", Authentification.getIDfromUser(email));
+                      response.sendRedirect("listPanier.jsp");
+
+                   //   request.getRequestDispatcher("listPanier.jsp").include(request, response); 
+                      break;
+                case(" "):
+                    //response.sendRedirect("index.html");
+                    request.getRequestDispatcher("index.html").include(request, response); 
+                break;
+                case("admin"):
+                    session=request.getSession();  
+                    session.setAttribute("login",email);
+                    session.setAttribute("idUser", Authentification.getIDfromUser(email));
+
+                    session.setAttribute("role","admin");
+
+                    response.sendRedirect("admin.jsp");
+                    break;
                 
             }
-            
             
             
             

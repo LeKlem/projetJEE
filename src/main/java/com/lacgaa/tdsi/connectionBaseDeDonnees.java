@@ -17,7 +17,7 @@ public class connectionBaseDeDonnees {
     static Connection connexion = null;
     
     public static Connection connexionBase(){
-            String url = "jdbc:mysql://localhost:3306/projet_app_ent";
+            String url = "jdbc:mysql://localhost:3306/java";
             String login = "root";
             String pass  = "";
             String driver = "com.mysql.jdbc.Driver";

@@ -32,6 +32,29 @@ public class listServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // TODO Auto-generated method stub
 
+		String valide = request.getParameter("idPanier");
+		HttpSession session = request.getSession();
+		System.out.println("ici");
+		if(valide!= null) {
+			int idPanier = Integer.parseInt(valide);
+			try {
+				Connection con = connectionBaseDeDonnees.connexionBase();
+				Statement statement = con.createStatement();
+				
+				int e = (int) session.getAttribute("idUser");
+				String sql ="UPDATE panier SET idAcheteur = " + e + " WHERE idPanier = " + idPanier+""; 
+				System.out.println(sql);
+				String panier = null;
+				statement.executeUpdate(sql);
+                response.sendRedirect("listPanier.jsp?nomP=&nomR=&ville=&recherche=rechercher");
+				
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		else {
+			
+		
         //appel couche metier
         
         
@@ -70,24 +93,27 @@ public class listServlet extends HttpServlet {
         }catch(Exception e) {
         	
         }
+		}
         
     }
 
 	 //Il faut récupérer l'id du User pour le mettre a la suite de la formule l.87
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String valide = request.getParameter("valide");
+		String valide = request.getParameter("idPanier");
 		HttpSession session = request.getSession();
+		System.out.println("ici");
 		if(valide!= null) {
+			int idPanier = Integer.parseInt(valide);
 			try {
 				Connection con = connectionBaseDeDonnees.connexionBase();
 				Statement statement = con.createStatement();
 				
-				Object e = session.getAttribute("idAuth");
-				String c = e.toString();
-				String sql ="UPDATE panier SET idAcheteur = " + c; 
+				int e = (int) session.getAttribute("idUser");
+				String sql ="UPDATE panier SET idAcheteur = " + e + "WHERE idPanier = " + idPanier+""; 
+				System.out.println(sql);
 				String panier = null;
 				statement.executeUpdate(sql);
-
+                response.sendRedirect("listPanier.jsp");
 				
 			}catch(Exception e) {
 				e.printStackTrace();
@@ -95,6 +121,7 @@ public class listServlet extends HttpServlet {
 		}
 	}
 	private void lister(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException{
+		
         List<paniers> liste = metier.lister();
         
         //stcoker le resultat dans model

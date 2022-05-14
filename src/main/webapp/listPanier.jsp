@@ -43,13 +43,21 @@ and open the template in the editor.
                 response.sendRedirect("index.html");
            }
         %>
+        <%
+if(request.getParameter("success") != null){
+	%>
+	<div class="alert alert-success" role="alert">
+Panier acheté avec succès !</div>
+	<%
+}
+
+%>
 	<div class="div2">
 		<!--  <form action="deconnexion" method="POST">
                 <button class="b2 btn btn-success" type="submit" > Se déconnecter </button> 
            </form>
           -->
 		<a href="deconnexion" id="b2" class="btn btn-info" role="button">Déconnexion</a>
-		<a href="Panier.jsp" id="b3" class="btn btn-info" role="button">Panier</a>
 	</div>
 
 	<div class="div1">
@@ -64,13 +72,12 @@ and open the template in the editor.
 			<tr>
 
 			</tr>
-			<tr bgcolor="blue">
-				<td><b>titre</b></td>
-				<td><b>image</b></td>
-				<td><b>description</b></td>
-				<td><b>vendeur</b></td>
-				<td><b>Ville</b></td>
-				<td><b>Action</b></td>
+			<tr bgcolor="#5bc0de">
+				<td><b>&nbspTitre</b></td>
+				<td><b>&nbspDescription</b></td>
+				<td><b>&nbspVendeur</b></td>
+				<td><b>&nbspVille</b></td>
+				<td><b>&nbspAction</b></td>
 			</tr>
 			<%
 			String recherche = request.getParameter("recherche");
@@ -83,39 +90,36 @@ String nomR = request.getParameter("nomR");
 String ville = request.getParameter("ville");
 String sql = null;
 if(nomP.equals("") && nomR.equals("") && ville.equals("")){
-sql ="SELECT DISTINCT * FROM panier INNER JOIN restaurant ON panier.idResto = restaurant.idResto WHERE idAcheteur=0";
+sql ="SELECT DISTINCT * FROM panier INNER JOIN restaurant ON panier.idResto = restaurant.idResto WHERE idAcheteur=0 AND validated = 1";
 }
 else if(!nomP.equals("") && nomR.equals("") && ville.equals("")){
-	sql ="SELECT DISTINCT * FROM panier INNER JOIN restaurant ON panier.idResto = restaurant.idResto WHERE titre = '" + nomP + "' AND idAcheteur=0";
+	sql ="SELECT DISTINCT * FROM panier INNER JOIN restaurant ON panier.idResto = restaurant.idResto WHERE titre = '" + nomP + "' AND idAcheteur=0 AND validated = 1";
 	} 
 else if(nomP.equals("") && !nomR.equals("") && ville.equals("")){
-	sql ="SELECT DISTINCT * FROM panier INNER JOIN restaurant ON panier.idResto = restaurant.idResto WHERE panier.idResto = restaurant.idResto AND restaurant.nom = '" + nomR + "' AND idAcheteur=0";
+	sql ="SELECT DISTINCT * FROM panier INNER JOIN restaurant ON panier.idResto = restaurant.idResto WHERE panier.idResto = restaurant.idResto AND restaurant.nom = '" + nomR + "' AND idAcheteur=0 AND validated = 1";
 	}
 else if(nomP.equals("") && nomR.equals("") && !ville.equals("")){
-	sql ="SELECT DISTINCT * FROM panier INNER JOIN restaurant ON panier.idResto = restaurant.idResto WHERE panier.idResto = restaurant.idResto AND restaurant.adresse = '" + ville + "' AND idAcheteur=0";
+	sql ="SELECT DISTINCT * FROM panier INNER JOIN restaurant ON panier.idResto = restaurant.idResto WHERE panier.idResto = restaurant.idResto AND restaurant.adresse = '" + ville + "' AND idAcheteur=0 AND validated = 1";
 	}
 else if(!nomP.equals("") && nomR.equals("") && !ville.equals("")){
-	sql ="SELECT DISTINCT * FROM panier INNER JOIN restaurant ON panier.idResto = restaurant.idResto WHERE panier.idResto = restaurant.idResto AND restaurant.adresse = '" + ville + "' AND titre = '" + nomP + "' AND idAcheteur=0";
+	sql ="SELECT DISTINCT * FROM panier INNER JOIN restaurant ON panier.idResto = restaurant.idResto WHERE panier.idResto = restaurant.idResto AND restaurant.adresse = '" + ville + "' AND titre = '" + nomP + "' AND idAcheteur=0 AND validated = 1";
 	}
 else if(nomP.equals("") && !nomR.equals("") && !ville.equals("")){
-	sql ="SELECT DISTINCT * FROM panier INNER JOIN restaurant ON panier.idResto = restaurant.idResto WHERE panier.idResto = restaurant.idResto AND restaurant.adresse = '" + ville + "' AND panier.idResto = restaurant.idResto AND restaurant.nom = '" + nomR + "' AND idAcheteur=0";
+	sql ="SELECT DISTINCT * FROM panier INNER JOIN restaurant ON panier.idResto = restaurant.idResto WHERE panier.idResto = restaurant.idResto AND restaurant.adresse = '" + ville + "' AND panier.idResto = restaurant.idResto AND restaurant.nom = '" + nomR + "' AND idAcheteur=0 AND validated = 1";
 	}
 else if(!nomP.equals("") && !nomR.equals("") && !ville.equals("")){
-	sql ="SELECT DISTINCT * FROM panier INNER JOIN restaurant ON panier.idResto = restaurant.idResto WHERE panier.idResto = restaurant.idResto AND restaurant.adresse = '" + ville + "' AND panier.idResto = restaurant.idResto AND restaurant.nom = '" + nomR + "' AND titre = '" + nomP + "' AND idAcheteur=0" ;
+	sql ="SELECT DISTINCT * FROM panier INNER JOIN restaurant ON panier.idResto = restaurant.idResto WHERE panier.idResto = restaurant.idResto AND restaurant.adresse = '" + ville + "' AND panier.idResto = restaurant.idResto AND restaurant.nom = '" + nomR + "' AND titre = '" + nomP + "' AND idAcheteur=0 AND validated = 1" ;
 	}
 ResultSet st= statement.executeQuery(sql);
 while(st.next()){
 %>
-			<tr bgcolor="#DEB887">
+			<tr bgcolor="white">
 
-				<td><%=st.getString("titre") %></td>
-				<td><%=st.getString("lienImage") %></td>
-				<td><%=st.getString("description") %></td>
-				<td><%=st.getString("nom") %></td>
-				<td><%=st.getString("adresse") %></td>
-				<td><form action="list" method="POST">
-						<input type="submit" value="ajouter dans le panier" name="valide" />
-					</form></td>
+				<td>&nbsp<%=st.getString("titre") %>&nbsp</td>
+				<td>&nbsp<%=st.getString("description") %>&nbsp</td>
+				<td>&nbsp<%=st.getString("nom") %>&nbsp</td>
+				<td>&nbsp<%=st.getString("adresse") %>&nbsp</td>
+				<td>&nbsp<a href="list?idPanier=<%=st.getInt("idPanier") %>">Acheter</a>&nbsp</td>
 			</tr>
 			<% 
 }

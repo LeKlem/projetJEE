@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Formulaire Entreprise</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
+        <style>
+            label{
+                display: block;
+                float: left;
+                width: 150px;
+                margin-left: 20px;
+            }
+            legend{
+                margin-left: 20px;
+            }
+            input{
+                width: 230px;
+            }
+            .f1{
+                float: left;
+                margin-right: 400px;
+            }
+            .b1 {
+                position: fixed;
+                left: 10%;
+                top:60%;
+            }
+            .b2{
+                position: fixed;
+                right: 30%;
+                top:40%;
+            }
+            .d1{
+                position: fixed;
+                right: 20%;
+                top:15%;
+            }
+            
+            
+        </style>
+        
+        <!-- BOOTSTRAP -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        
+    </head>
+    <body>
+        <div class="form1">
+        <form action="entreprise" method="POST">
+            <div class="f1">
+            <fieldset>
+                <legend>S'inscrire : </legend>
+                <label for="nom"> Nom : </label>  <input type="text"  name="nom" id="nom" placeholder="Entrez votre nom" required><BR><BR><BR>
+                <label  for="adresse"> Ville : </label>  <input type="text"  name="adresse" id="adresse" placeholder="Lyon" required><BR><BR><BR>
+                <label  for="email"> Email : </label>  <input type="email"  name="email" id="email" placeholder="nom@exemple.com" required><BR><BR><BR>
+                <label  for="siret"> Siret : </label>  <input type="text"  name="siret" id="siret" placeholder="123 456 789 00000" required><BR><BR><BR>
+                
+                <label  for="mdp"> Mot de passe : </label>  <input type="password"  name="mdp" id="mdp" placeholder="Entrez votre mot de passe" required><BR><BR><BR>
+                <button class="b1 btn btn-primary" type="submit" > Valider </button>
+                
+            </fieldset>
+            </div>
+        </form>
+      </div>  
+        
+      <div  class="form2">
+        <form action="connection_ent" method="POST">
+            <div class="f2">
+            <fieldset>
+                <div class="d1">
+                <legend>Se connecter : </legend>
+                <label  for="email"> Email : </label>  <input type="email"  name="email" id="email" required><BR><BR><BR>
+                <label  for="mdp"> Mot de passe : </label>  <input type="password"  name="mdp" id="mdp" required><BR><BR><BR>
+                <button class="b2 btn btn-success" type="submit" > Valider </button>
+                </div>
+            </fieldset>
+            </div>
+        </form>
+      </div>
+    </body>
+</html>

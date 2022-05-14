@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.lacgaa.tdsi;
 
 import java.io.IOException;
@@ -19,10 +14,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- *
- * @author USER
- */
 @WebServlet(name = "formulaireServlet", urlPatterns = {"/formulaire"})
 public class formulaireServlet extends HttpServlet {
 
@@ -66,7 +57,7 @@ public class formulaireServlet extends HttpServlet {
                 st.executeUpdate(sql);
                 st.executeUpdate(sql_1);
                 
-                response.sendRedirect("welcome.html");
+                response.sendRedirect("listPanier.jsp");
              }else{
                  out.print("<HTML><BODY>");
                  out.print("<STRONG>Erreur !!! l'email "+email+" a été déjà utilisé </STRONG></BR> <a href='index.html'>"
