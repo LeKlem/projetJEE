@@ -1,0 +1,5 @@
+com\lacgaa\tdsi\connectionBaseDeDonnees.class
+com\lacgaa\tdsi\ConnectionServlet.class
+com\lacgaa\tdsi\deconnexionServlet.class
+com\lacgaa\tdsi\Authentification.class
+com\lacgaa\tdsi\formulaireServlet.class
